@@ -33,6 +33,7 @@ def register_connection(alias, name=None, host=None, port=None,
                         username=None, password=None,
                         authentication_source=None,
                         authentication_mechanism=None,
+                        pool_size=None,
                         **kwargs):
     """Add a connection.
 
@@ -63,7 +64,8 @@ def register_connection(alias, name=None, host=None, port=None,
         'username': username,
         'password': password,
         'authentication_source': authentication_source,
-        'authentication_mechanism': authentication_mechanism
+        'authentication_mechanism': authentication_mechanism,
+        'pool_size': pool_size,
     }
 
     conn_host = conn_settings['host']
@@ -101,6 +103,8 @@ def register_connection(alias, name=None, host=None, port=None,
                 conn_settings['authentication_source'] = uri_options['authsource']
             if 'authmechanism' in uri_options:
                 conn_settings['authentication_mechanism'] = uri_options['authmechanism']
+            if 'pool_size' in uri_options:
+                conn_settings['pool_size'] = uri_options['pool_size']
         else:
             resolved_hosts.append(entity)
     conn_settings['host'] = resolved_hosts
